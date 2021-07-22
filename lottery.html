@@ -112,7 +112,7 @@
       $(".reset").on("click", function () {
         //清空陣列
         lottArr.length = 0;
-        lotteryArr.length = 0;
+        lotOpenArr.length = 0;
         lottWin.length = 0;
         //清掉顯示數字
         $(".lottery-result span").text("");
@@ -126,36 +126,41 @@
       });
 
       // 兌獎按鈕
-      let lotteryArr = [];
+      let lotOpenArr = [];
       let lottWin = [];
       $(".btn-lottery").on("click", function () {
         if (lottArr.length < 6) {
           alert("必須要選六個號碼唷");
         } else {
-          while (lotteryArr.length < 6) {
+          while (lotOpenArr.length < 6) {
             let n = Math.floor(Math.random() * 49) + 1;
-            if (lotteryArr.indexOf(n) === -1) {
-              lotteryArr.push(n);
+            if (lotOpenArr.indexOf(n) === -1) {
+              lotOpenArr.push(n);
             }
           }
-          $(".lottery-result span").text(lotteryArr);
+          $(".lottery-result span").text(lotOpenArr);
           //開獎號碼highlight
-          lotteryArr.forEach((el) => {
+          lotOpenArr.forEach((el) => {
             $(".lottery-nums div")
               .eq(el - 1)
               .addClass("highlight");
           });
 
           // 1. 判斷 .selected.highlight
-          if ($(".lottery-nums div").hasClass("selected highlight")) {
-            let num = Number($(".selected.highlight").text());
-            console.log(num);
-            lottWin.push(num);
-            console.log(lottWin);
-            $(".lottery-win span").text(lottWin);
-          }
+          // if ($(".lottery-nums div").hasClass("selected highlight")) {
+          //   let num = Number($(".selected.highlight").text());
+          //   console.log(num);
+          //   lottWin.push(num);
+          //   console.log(lottWin);
+          //   $(".lottery-win span").text(lottWin);
+          // }
 
           // 2. 比對兩個陣列
+          let lottWin = lottArr.filter((value) => {
+            return lotOpenArr.includes(value) === true;
+          });
+          console.log(lottWin);
+          $(".lottery-win span").text(lottWin);
         }
       });
     </script>

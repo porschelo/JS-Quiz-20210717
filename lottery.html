@@ -85,13 +85,23 @@
         $(".lottery-nums").append('<div class="pointer">' + i + "</div>");
       }
 
-      // 1. 為數字按鈕加入事件
+      // 為數字按鈕加入事件
       let lottArr = [];
       $(".lottery-nums div").on("click", function (e) {
         if (lottArr.length < 6) {
           $(e.target).addClass("selected");
           let number = $(e.target).text();
-          lottArr.push(number);
+          if (lottArr.indexOf(number) === -1) {
+            lottArr.push(number);
+          } else {
+            $(e.target).removeClass("selected");
+            //移除陣列中取消的數字
+            lottArr.forEach((el, idx) => {
+              if (lottArr.indexOf(number) === idx) {
+                lottArr.splice(idx, 1);
+              }
+            });
+          }
         } else {
           alert("你選擇超過六個數字囉！");
         }

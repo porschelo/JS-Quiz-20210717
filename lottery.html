@@ -156,11 +156,17 @@
           // }
 
           // 2. 比對兩個陣列
-          let lottWin = lottArr.filter((value) => {
-            return lotOpenArr.includes(value) === true;
+          lottWin = lottArr.filter((value) => {
+            return lotOpenArr.includes(value);
           });
-          console.log(lottWin);
-          $(".lottery-win span").text(lottWin);
+          // console.log(lottWin);
+          if (lottWin.length < 1) {
+            $(".lottery-win span").text("Sorry, try next time!");
+          } else {
+            $(".lottery-win span").text(
+              `${lottWin} , 恭喜您中了${lottWin.length}個`
+            );
+          }
         }
       });
     </script>

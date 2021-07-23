@@ -90,7 +90,8 @@
       $(".lottery-nums div").on("click", function (e) {
         if (lottArr.length < 6) {
           $(e.target).addClass("selected");
-          let number = $(e.target).text();
+          //要轉成數字！ 不然會像數字的文字陣列 後面跟數字陣列比對會出問題
+          let number = Number($(e.target).text());
           if (lottArr.indexOf(number) === -1) {
             lottArr.push(number);
           } else {
@@ -146,7 +147,7 @@
               .addClass("highlight");
           });
 
-          // 1. 判斷 .selected.highlight
+          // 1. 判斷 .selected.highlight(有問題)
           // if ($(".lottery-nums div").hasClass("selected highlight")) {
           //   let num = Number($(".selected.highlight").text());
           //   console.log(num);
@@ -159,7 +160,6 @@
           lottWin = lottArr.filter((value) => {
             return lotOpenArr.includes(value);
           });
-          // console.log(lottWin);
           if (lottWin.length < 1) {
             $(".lottery-win span").text("Sorry, try next time!");
           } else {
